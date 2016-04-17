@@ -97,6 +97,7 @@ Copyright © 2016 TSPrograms.
           else {
             tokenized[index] += char;
           }
+          break;
         default:
           throw 'QuickScript: ParseError: Unknown token type "' + type + '"';
       }
