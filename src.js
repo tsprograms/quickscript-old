@@ -104,4 +104,15 @@ Copyright © 2016 TSPrograms.
     }
     return tokenized;
   };
+  
+  // run takes a code string and (TODO) returns the result of executing it
+  var run = function(code) {
+    return tokenize(code);
+  };
+  
+  window.QuickScript = {
+    runCode: function() {
+      run.apply({}, arguments);
+    }
+  };
 })();
