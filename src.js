@@ -102,5 +102,6 @@ Copyright © 2016 TSPrograms.
           throw 'QuickScript: ParseError: Unknown token type "' + type + '"';
       }
     }
+    return tokenized;
   };
 })();
