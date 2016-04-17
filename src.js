@@ -112,7 +112,7 @@ Copyright © 2016 TSPrograms.
   
   window.QuickScript = {
     runCode: function() {
-      run.apply({}, arguments);
+      return run.apply({}, arguments);
     }
   };
 })();
