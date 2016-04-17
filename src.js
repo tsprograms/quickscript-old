@@ -46,9 +46,22 @@ Copyright © 2016 TSPrograms.
               type = 'name';
             }
           }
+          else {
+            tokenized[index] += char;
+          }
           break;
         case 'operator':
-          // TODO
+          if (canBeOperator(char)) {
+            tokenized[index] += char;
+          }
+          else {
+            ++index;
+            tokenized[index] = char;
+            if ((/\s/).test(char)) {
+              type = 'space';
+            }
+            // TODO
+          }
           break;
         // TODO
       }
