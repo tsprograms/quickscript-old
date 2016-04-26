@@ -18,7 +18,7 @@ Copyright © 2016 TSPrograms.
     var regex = /((#+)[\s\S]+?\2)|(("|').*?[^\\]\4)/g;
     
     code = code.replace(regex, function(m, c1, c2, c3, c4) {
-      return (!c4) ? '' : m
+      return (!c4) ? '' : m;
     }); // Remove all comments from the code
     
     var tokenized = [''];
@@ -35,18 +35,18 @@ Copyright © 2016 TSPrograms.
           if (!(/\s/).test(char)) { // If there is whitespace, nothing is done (it is ignored)
             ++index;
             tokenized[index] = char;
-            if (char === '"' || char === "'") {
+            if (char === '"' || char === "'") { // If the next character is a quote, switch to string
               type = 'string';
               start = char;
             }
             else if (canBeOperator(char)) { // If there was space and now there is an operator, switch type to operator
               type = 'operator';
             }
-            else {
+            else { // If it's not whitespace, a quote, or an operator, it must be part of a name
               type = 'name';
             }
           }
-          else {
+          else { // If the next char is whitespace, continue appending to current index
             tokenized[index] += char;
           }
           break;
@@ -55,6 +55,7 @@ Copyright © 2016 TSPrograms.
             tokenized[index] += char;
           }
           else {
+            // Switch type if character cannot be operator
             ++index;
             tokenized[index] = char;
             if ((/\s/).test(char)) {
@@ -72,6 +73,7 @@ Copyright © 2016 TSPrograms.
         case 'string':
           tokenized[i] += char;
           if (char === start && code.charAt(i - 1) !== '\\') {
+            // If the character is equal to the start quote and it's not escaped, end the string
             ++index;
             tokenized[index] = '';
             type = 'space';
@@ -95,10 +97,12 @@ Copyright © 2016 TSPrograms.
             tokenized[index] = char;
           }
           else {
+            // It must be a name
             tokenized[index] += char;
           }
           break;
         default:
+          // This should never occur
           throw 'QuickScript: ParseError: Unknown token type "' + type + '"';
       }
     }
@@ -110,6 +114,7 @@ Copyright © 2016 TSPrograms.
     return tokenize(code);
   };
   
+  // Export the run function as window.QuickScript.runCode
   window.QuickScript = {
     runCode: function() {
       return run.apply({}, arguments);
